@@ -1,3 +1,5 @@
+// line 39, 102
+
 import puppeteer from 'puppeteer'
 import fs from 'fs'
 import path from 'path'
@@ -10,7 +12,7 @@ const getManga = async(url, dst) => {
     try{
         const browser = await puppeteer.launch({
             headless:true,
-            executablePath:'/Applications/Brave Browser.app/Contents/MacOS/Brave Browser'
+            // executablePath:'/Applications/Brave Browser.app/Contents/MacOS/Brave Browser'
         })
 
         const page = await browser.newPage()
@@ -19,7 +21,7 @@ const getManga = async(url, dst) => {
         
         const [allImgUrls, nextPageUrl, noImage] = await page.evaluate(async() => {
             const divImg = document.querySelector('div.inside-article')
-            const image = divImg.querySelectorAll('img.img-loading.entered.litespeed-loaded')
+            const image = divImg.querySelectorAll('img.img-loading')
             let link = null
             const divBtn = document.querySelector('div.gb-button-wrapper.gb-button-wrapper-fe863527')
             if(divBtn){
@@ -34,7 +36,7 @@ const getManga = async(url, dst) => {
             const updates = {
                 "no Images" : chapter
             }
-            fs.writeFile("/Users/visheshgoyal/JS Projects/MangaScraper/missed.json", JSON.stringify(updates), (err) => {
+            fs.writeFile("/Users/visheshgoyal/JS Projects/mangascraper code/Output/missed.json", JSON.stringify(updates), (err) => {
                 if (err) {
                     console.error(`Error writing file: ${err.message}`);
                 } else {
@@ -97,4 +99,4 @@ async function downloadImage(imageSrc, filePath) {
     }
 }
 
-getManga('https://hellsparadise.net/manga/hells-paradise-chapter-1/', '/Users/visheshgoyal/Desktop/Hell\'s Paradise')
+getManga('https://hellsparadise.net/manga/hells-paradise-chapter-1/', '/Users/visheshgoyal/JS Projects/mangascraper code/Output')

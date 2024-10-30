@@ -1,5 +1,3 @@
-// line 39, 102
-
 import puppeteer from 'puppeteer'
 import fs from 'fs'
 import path from 'path'
@@ -12,7 +10,6 @@ const getManga = async(url, dst) => {
     try{
         const browser = await puppeteer.launch({
             headless:true,
-            // executablePath:'/Applications/Brave Browser.app/Contents/MacOS/Brave Browser'
         })
 
         const page = await browser.newPage()
